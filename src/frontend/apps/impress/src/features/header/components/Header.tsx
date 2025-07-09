@@ -46,7 +46,8 @@ export const Header = () => {
             <div style={{ 
               display: 'flex', 
               alignItems: 'centre', 
-              gap: spacingsTokens['sm'] 
+              gap: spacingsTokens['sm'],
+              float: 'right',
             }}>
               <ButtonLogin />
               <LanguagePicker />

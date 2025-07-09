@@ -234,10 +234,10 @@
     --c--theme--colors--greyscale-000
   );
   --c--components--button--primary-text--color: var(
-    --c--theme--colors--primary-800
+    white
   );
   --c--components--button--primary-text--color-hover: var(
-    --c--theme--colors--primary-800
+    black;
   );
   --c--components--button--primary-text--disabled: var(
     --c--theme--colors--greyscale-400

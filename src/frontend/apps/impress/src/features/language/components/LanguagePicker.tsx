@@ -52,7 +52,7 @@ export const LanguagePicker = () => {
           display: flex;
         }
         & .material-icons {
-          color: var(--c--components--button--primary-text--color) !important;
+          color: white !important;
         }
       `}
     >
