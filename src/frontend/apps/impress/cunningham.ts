@@ -98,7 +98,7 @@ const genericTheme = {
       colors: {
         'primary-action': '#206EBD',
         'primary-focus': '#1E64BF',
-        'primary-text': '#2E2C28',
+        'primary-text': 'white',
         'primary-050': '#F8F8F7',
         'primary-100': '#F0EFEC',
         'primary-150': '#F4F4FD',

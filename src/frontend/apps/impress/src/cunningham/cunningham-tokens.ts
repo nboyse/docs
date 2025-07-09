@@ -450,7 +450,7 @@ export const tokens = {
         colors: {
           'primary-action': '#206EBD',
           'primary-focus': '#1E64BF',
-          'primary-text': '#2E2C28',
+          'primary-text': 'white',
           'primary-050': '#F8F8F7',
           'primary-100': '#F0EFEC',
           'primary-150': '#F4F4FD',
@@ -459,7 +459,7 @@ export const tokens = {
           'primary-400': '#979592',
           'primary-500': '#82807D',
           'primary-600': '#3F3D39',
-          'primary-700': '#2E2C28',
+          'primary-700': 'white',
           'primary-800': '#302E29',
           'primary-900': '#282622',
           'primary-950': '#201F1C',

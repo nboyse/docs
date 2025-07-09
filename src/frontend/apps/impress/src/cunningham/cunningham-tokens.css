@@ -560,7 +560,7 @@
 .cunningham-theme--generic {
   --c--theme--colors--primary-action: #206ebd;
   --c--theme--colors--primary-focus: #1e64bf;
-  --c--theme--colors--primary-text: #2e2c28;
+  --c--theme--colors--primary-text: white;
   --c--theme--colors--primary-050: #f8f8f7;
   --c--theme--colors--primary-100: #f0efec;
   --c--theme--colors--primary-150: #f4f4fd;

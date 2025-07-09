@@ -20,53 +20,41 @@ export const Header = () => {
   const { isDesktop } = useResponsiveStore();
 
   return (
-    <Box
-      as="header"
-      $css={css`
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        height: ${HEADER_HEIGHT}px;
-        padding: 0 ${spacingsTokens['base']};
-        background-color: ${colorsTokens['greyscale-000']};
-        border-bottom: 1px solid ${colorsTokens['greyscale-200']};
-      `}
-      className="govuk-header"
-    >
-      {!isDesktop && <ButtonTogglePanel />}
-      <StyledLink href="/" className="govuk-header__link govuk-header__link--homepage">
-        <Box
-          $align="center"
-          $gap={spacingsTokens['3xs']}
-          $direction="row"
-          $position="relative"
-          $height="fit-content"
-          $margin={{ top: 'auto' }}
-        >
-          <IconDocs
-            aria-label={t('Docs Logo')}
-            width={32}
-            color={colorsTokens['primary-text']}
-          />
-          <Title />
-        </Box>
-      </StyledLink>
-      {!isDesktop ? (
-        <Box $direction="row" $gap={spacingsTokens['sm']}>
-          <LaGaufre />
-        </Box>
-      ) : (
-        <Box $align="center" $gap={spacingsTokens['sm']} $direction="row">
-          <ButtonLogin />
-          <LanguagePicker />
-          <LaGaufre />
-        </Box>
-      )}
-    </Box>
+    <header className="govuk-header" role="banner" data-module="govuk-header">
+      <div className="govuk-header__container govuk-width-container">
+        {!isDesktop && <ButtonTogglePanel />}
+
+        <div className="govuk-header__logo">
+          <a href="/" className="govuk-header__link govuk-header__link--homepage">
+            <span className="govuk-header__logotype">
+              <IconDocs
+                aria-label={t('Docs Logo')}
+                width={32}
+                color={colorsTokens['primary-text']}
+              />
+              <Title />
+            </span>
+          </a>
+        </div>
+
+        <div className="govuk-header__content">
+          {!isDesktop ? (
+            <div style={{ display: 'flex', gap: spacingsTokens['sm'] }}>
+              <LaGaufre />
+            </div>
+          ) : (
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'centre', 
+              gap: spacingsTokens['sm'] 
+            }}>
+              <ButtonLogin />
+              <LanguagePicker />
+              <LaGaufre />
+            </div>
+          )}
+        </div>
+      </div>
+    </header>
   );
 };
