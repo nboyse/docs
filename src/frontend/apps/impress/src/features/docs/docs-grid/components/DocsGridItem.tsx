@@ -53,7 +53,6 @@ export const DocsGridItem = ({ doc }: DocsGridItemProps) => {
         <StyledLink
           $css={css`
             flex: ${flexLeft};
-            align-items: center;
             min-width: 0;
           `}
           href={`/docs/${doc.id}`}

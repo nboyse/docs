@@ -81,8 +81,9 @@ export const LeftPanelHeader = ({ children }: PropsWithChildren) => {
               )}
             </Box>
             {authenticated && (
-              <Button onClick={createNewDoc} disabled={isCreatingDoc}>
+              <Button onClick={createNewDoc} disabled={isCreatingDoc} className="govuk-button">
                 {t('New doc')}
+                
               </Button>
             )}
           </Box>

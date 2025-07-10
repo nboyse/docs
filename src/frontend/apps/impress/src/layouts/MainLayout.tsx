@@ -26,14 +26,12 @@ export function MainLayout({
       <Header />
       <Box
         $direction="row"
-        $margin={{ top: `${HEADER_HEIGHT}px` }}
         $width="100%"
       >
         <LeftPanel />
         <Box
           as="main"
           id={MAIN_LAYOUT_ID}
-          $align="center"
           $flex={1}
           $width="100%"
           $height={`calc(100dvh - ${HEADER_HEIGHT}px)`}

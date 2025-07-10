@@ -1,28 +1,22 @@
-import { Button } from '@openfun/cunningham-react';
 import { useTranslation } from 'react-i18next';
 import { InView } from 'react-intersection-observer';
-import { css } from 'styled-components';
-
-import { Box, Card, Text } from '@/components';
 import { DocDefaultFilter, useInfiniteDocs } from '@/docs/doc-management';
 import { useResponsiveStore } from '@/stores';
-
 import { useResponsiveDocGrid } from '../hooks/useResponsiveDocGrid';
-
 import { DocsGridItem } from './DocsGridItem';
 import { DocsGridLoader } from './DocsGridLoader';
+import { Fragment } from 'react';
 
 type DocsGridProps = {
   target?: DocDefaultFilter;
 };
+
 export const DocsGrid = ({
   target = DocDefaultFilter.ALL_DOCS,
 }: DocsGridProps) => {
   const { t } = useTranslation();
-
   const { isDesktop } = useResponsiveStore();
   const { flexLeft, flexRight } = useResponsiveDocGrid();
-
   const {
     data,
     isFetching,
@@ -37,8 +31,10 @@ export const DocsGrid = ({
         is_creator_me: target === DocDefaultFilter.MY_DOCS,
       }),
   });
+
   const loading = isFetching || isLoading;
   const hasDocs = data?.pages.some((page) => page.results.length > 0);
+
   const loadMore = (inView: boolean) => {
     if (!inView || loading) {
       return;
@@ -50,76 +46,74 @@ export const DocsGrid = ({
     target === DocDefaultFilter.MY_DOCS
       ? t('My docs')
       : target === DocDefaultFilter.SHARED_WITH_ME
-        ? t('Shared with me')
-        : t('All docs');
+      ? t('Shared with me')
+      : t('All docs');
 
   return (
-    <Box
-      $position="relative"
-      $width="100%"
-      $maxWidth="960px"
-      $maxHeight="calc(100vh - 52px - 2rem)"
-      $align="center"
-      className="--docs--doc-grid"
+    <div 
+      className="govuk-grid-column-three-quarters govuk-!-margin-left-0" 
+      style={{
+        position: 'relative',
+        maxWidth: '960px',
+        maxHeight: 'calc(100vh - 52px - 2rem)',
+        display: 'flex',
+        alignItems: 'centre'
+      }}
     >
       <DocsGridLoader isLoading={isRefetching || loading} />
-      <Card
+
+      <div 
+        className={`govuk-panel ${!isDesktop ? 'govuk-panel--no-border' : ''}`}
         role="grid"
         data-testid="docs-grid"
-        $height="100%"
-        $width="100%"
-        $css={css`
-          ${!isDesktop ? 'border: none;' : ''}
-        `}
-        $padding={{
-          top: 'base',
-          horizontal: isDesktop ? 'md' : 'xs',
-          bottom: 'md',
+        style={{
+          height: '100%',
+          width: '100%',
+          padding: isDesktop ? '20px 30px 30px' : '20px 15px 30px'
         }}
       >
-        <Text
-          as="h4"
-          $size="h4"
-          $variation="1000"
-          $margin={{ top: '0px', bottom: '10px' }}
-        >
+        <h2 className="govuk-heading-m">
           {title}
-        </Text>
+        </h2>
 
         {!hasDocs && !loading && (
-          <Box $padding={{ vertical: 'sm' }} $align="center" $justify="center">
-            <Text $size="sm" $variation="600" $weight="700">
+          <div className="govuk-body" style={{ textAlign: 'centre', padding: '15px 0' }}>
+            <p className="govuk-body-s govuk-!-font-weight-bold">
               {t('No documents found')}
-            </Text>
-          </Box>
+            </p>
+          </div>
         )}
+
         {hasDocs && (
-          <Box $gap="6px" $overflow="auto">
-            <Box
-              $direction="row"
-              $padding={{ horizontal: 'xs' }}
-              $gap="10px"
+          <div style={{ overflow: 'auto', gap: '6px' }}>
+            <div 
+              className="govuk-grid-row govuk-!-padding-horizontal-2" 
+              style={{ gap: '10px', display: 'flex' }}
               data-testid="docs-grid-header"
             >
-              <Box $flex={flexLeft} $padding="3xs">
-                <Text $size="xs" $variation="600" $weight="500">
+              <div style={{ flex: flexLeft, padding: '5px' }}>
+                <p className="govuk-body-s govuk-!-font-weight-medium">
                   {t('Name')}
-                </Text>
-              </Box>
-              {isDesktop && (
-                <Box $flex={flexRight} $padding={{ vertical: '3xs' }}>
-                  <Text $size="xs" $weight="500" $variation="600">
-                    {t('Updated at')}
-                  </Text>
-                </Box>
-              )}
-            </Box>
+                </p>
+              </div>
 
-            {data?.pages.map((currentPage) => {
-              return currentPage.results.map((doc) => (
-                <DocsGridItem doc={doc} key={doc.id} />
-              ));
-            })}
+              {isDesktop && (
+                <div style={{ flex: flexRight, padding: '5px 0' }}>
+                  <p className="govuk-body-s govuk-!-font-weight-medium">
+                    {t('Updated at')}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {data?.pages.map((currentPage, pageIndex) => (
+              // Using pageIndex as part of key since we need unique keys for mapped elements
+              <Fragment key={`page-${pageIndex}`}>
+                {currentPage.results.map((doc) => (
+                  <DocsGridItem doc={doc} key={doc.id} />
+                ))}
+              </Fragment>
+            ))}
 
             {hasNextPage && !loading && (
               <InView
@@ -128,18 +122,19 @@ export const DocsGrid = ({
                 onChange={loadMore}
               >
                 {!isFetching && hasNextPage && (
-                  <Button
-                    onClick={() => void fetchNextPage()}
-                    color="primary-text"
+                  <button 
+                    className="govuk-button" 
+                    data-module="govuk-button"
+                    onClick={() => void fetchNextPage}
                   >
                     {t('More docs')}
-                  </Button>
+                  </button>
                 )}
               </InView>
             )}
-          </Box>
+          </div>
         )}
-      </Card>
-    </Box>
+      </div>
+    </div>
   );
 };
